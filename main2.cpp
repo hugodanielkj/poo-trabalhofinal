@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 
@@ -81,6 +83,8 @@ void modificarQuantidade(vector<Roupa>& estoque) {
 }
 
 int main() {
+
+    sf::RenderWindow window(sf::VideoMode(1500, 900), "Estoque Bambuzim");
     vector<Roupa> estoque; // Vetor que armazena as roupas
 
     int opcao;
