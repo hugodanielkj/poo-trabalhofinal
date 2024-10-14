@@ -28,9 +28,12 @@ void addCloth(vector<Roupa>& estoque){
   int amount;
   string size;
 
-  cout << "Digite o nome da peça: "
+  cout << "Digite o nome da peça: ";
   cin.ignore();
   getline(cin,name);
+  cout << "Digite quantidade disponivel: ";
+  cin >> amount;
+  
 }
 
 int main(){
