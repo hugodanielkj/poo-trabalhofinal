@@ -1,3 +1,5 @@
+//Arquivo que utilizei para aprender a usar fstream
+
 #include <iostream>
 #include <fstream>
 using namespace std;
