@@ -5,6 +5,9 @@
 
 using namespace std;
 
+//Variaveis Globais
+string nomeArquivo;
+
 class Roupa {
 private:
     string nome;
@@ -32,11 +35,6 @@ public:
         int quantidade = stoi(dados.substr(pos1 + 1, pos2 - pos1 - 1));
         string tamanho = dados.substr(pos2 + 1);
         return Roupa(nome, quantidade, tamanho);
-    }
-
-    // Adicionar uma nova roupa
-    Roupa adicionarRoupa(){
-
     }
 };
 
@@ -71,6 +69,24 @@ vector<Roupa> carregarEstoque(const string& arquivo) {
     return estoque;
 }
 
+void adicionarRoupa(){
+  string nome;
+  int quantidade;
+  string tamanho;
+  cout << "Digite, em sequencia, o nome da roupa, a quantidade e o tamanho(exemplo: carter-roxa 15 new-born)" << endl;
+  cin >> nome >> quantidade >> tamanho;
+
+  fstream arquivo(nomeArquivo, ios::in | ios::out);
+  if(arquivo.is_open()){
+    arquivo.clear();
+    arquivo.seekp(0, ios::end);
+    arquivo << nome << ", " << to_string(quantidade) << ", " << tamanho << endl;
+    arquivo.close();
+  } else {
+    cout << "Erro ao abrir o arquivo!" << endl;
+  }
+}
+
 int abrirMenu(){
   int escolhaDoUsuario;
   do {
@@ -92,10 +108,11 @@ int abrirMenu(){
 void execucaoDaEscolhaDoUsuario(const int &escolhaDoUsuario){
   switch(escolhaDoUsuario){
     case 0:
-      adicionarRoupa();
+
       break;
     case 1:
-
+      cout << 10000 << endl;
+      adicionarRoupa();
       break;
     case 2:
 
@@ -110,15 +127,11 @@ void execucaoDaEscolhaDoUsuario(const int &escolhaDoUsuario){
 }
 
 int main() {
-    vector<Roupa> estoque;
-    string nomeArquivoEstoque;
-
     cout << "Qual o nome do arquivo em que vai ser lido o estoque: ";
-    cin >> nomeArquivoEstoque;
+    cin >> nomeArquivo;
+    vector<Roupa> estoqueCarregado = carregarEstoque(nomeArquivo);
 
-    vector<Roupa> estoqueCarregado = carregarEstoque(nomeArquivoEstoque);
-
-    abrirMenu();
+    execucaoDaEscolhaDoUsuario(abrirMenu());
 
     // Exibe o estoque carregado
     for (const Roupa& roupa : estoqueCarregado) {
