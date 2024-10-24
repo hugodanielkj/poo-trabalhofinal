@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 class Roupa {
 private:
     string nome;
