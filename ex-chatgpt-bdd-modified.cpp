@@ -5,8 +5,6 @@
 
 using namespace std;
 
-//Variaveis Globais
-string nomeArquivo;
 
 class Roupa {
 private:
@@ -38,6 +36,10 @@ public:
     }
 };
 
+//Variaveis Globais
+string nomeArquivo;
+vector<Roupa> estoque;
+
 // Função para salvar o estoque em um arquivo
 void salvarEstoque(const vector<Roupa>& estoque, const string& arquivo) {
     ofstream file(arquivo);
@@ -53,7 +55,7 @@ void salvarEstoque(const vector<Roupa>& estoque, const string& arquivo) {
 }
 
 // Função para carregar o estoque de um arquivo
-void carregarEstoque(const string& arquivo, vector<Roupa>& estoque) {
+void carregarEstoque(const string& arquivo) {
     ifstream file(arquivo);
     string linha;
     if (file.is_open()) {
@@ -85,6 +87,13 @@ void adicionarRoupa(){
   }
 }
 
+void exibirEstoque(){
+  carregarEstoque(nomeArquivo);
+  for (const Roupa& roupa : estoque) {
+        cout << "Nome: " << roupa.getNome() << ", Quantidade: " << roupa.getQuantidade() << ", Tamanho: " << roupa.getTamanho() << endl;
+    }
+}
+
 int abrirMenu(){
   int escolhaDoUsuario;
   do {
@@ -110,6 +119,7 @@ void execucaoDaEscolhaDoUsuario(const int &escolhaDoUsuario){
       break;
     case 1:
       adicionarRoupa();
+      execucaoDaEscolhaDoUsuario(abrirMenu());
       break;
     case 2:
 
@@ -118,7 +128,8 @@ void execucaoDaEscolhaDoUsuario(const int &escolhaDoUsuario){
 
       break;
     case 4:
-
+      exibirEstoque();
+      execucaoDaEscolhaDoUsuario(abrirMenu());
       break;
   }
 }
@@ -126,14 +137,8 @@ void execucaoDaEscolhaDoUsuario(const int &escolhaDoUsuario){
 int main() {
     cout << "Qual o nome do arquivo em que vai ser lido o estoque: ";
     cin >> nomeArquivo;
-    vector<Roupa> estoque;
-    carregarEstoque(nomeArquivo, estoque);
-
+    carregarEstoque(nomeArquivo);
     execucaoDaEscolhaDoUsuario(abrirMenu());
-
-    for (const Roupa& roupa : estoque) {
-        cout << "Nome: " << roupa.getNome() << ", Quantidade: " << roupa.getQuantidade() << ", Tamanho: " << roupa.getTamanho() << endl;
-    }
 
     return 0;
 }
