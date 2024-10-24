@@ -53,8 +53,7 @@ void salvarEstoque(const vector<Roupa>& estoque, const string& arquivo) {
 }
 
 // Função para carregar o estoque de um arquivo
-vector<Roupa> carregarEstoque(const string& arquivo) {
-    vector<Roupa> estoque;
+void carregarEstoque(const string& arquivo, vector<Roupa>& estoque) {
     ifstream file(arquivo);
     string linha;
     if (file.is_open()) {
@@ -66,7 +65,6 @@ vector<Roupa> carregarEstoque(const string& arquivo) {
     } else {
         cout << "Erro ao abrir o arquivo para carregar." << endl;
     }
-    return estoque;
 }
 
 void adicionarRoupa(){
@@ -111,7 +109,6 @@ void execucaoDaEscolhaDoUsuario(const int &escolhaDoUsuario){
 
       break;
     case 1:
-      cout << 10000 << endl;
       adicionarRoupa();
       break;
     case 2:
@@ -129,12 +126,12 @@ void execucaoDaEscolhaDoUsuario(const int &escolhaDoUsuario){
 int main() {
     cout << "Qual o nome do arquivo em que vai ser lido o estoque: ";
     cin >> nomeArquivo;
-    vector<Roupa> estoqueCarregado = carregarEstoque(nomeArquivo);
+    vector<Roupa> estoque;
+    carregarEstoque(nomeArquivo, estoque);
 
     execucaoDaEscolhaDoUsuario(abrirMenu());
 
-    // Exibe o estoque carregado
-    for (const Roupa& roupa : estoqueCarregado) {
+    for (const Roupa& roupa : estoque) {
         cout << "Nome: " << roupa.getNome() << ", Quantidade: " << roupa.getQuantidade() << ", Tamanho: " << roupa.getTamanho() << endl;
     }
 
